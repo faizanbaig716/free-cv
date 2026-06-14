@@ -1,0 +1,1184 @@
+/* ==========================================================================
+   DESIGN SYSTEM & THEME TOKENS
+   ========================================================================== */
+:root {
+  /* UI Theme (Application Interface) */
+  --bg-app: #0b0f19;
+  --bg-panel: rgba(17, 24, 39, 0.7);
+  --bg-panel-solid: #111827;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-focus: #3b82f6;
+  
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+  --text-dark: #1f2937;
+  
+  --accent-color: #3b82f6;
+  --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.25);
+  
+  /* CV Document Variable Placeholders (dynamically overwritten by theme selector) */
+  --theme-primary: #2563eb;
+  --theme-secondary: #1d4ed8;
+  --theme-light: #eff6ff;
+  --theme-accent: #3b82f6;
+  --theme-text: #1f2937;
+  --theme-text-light: #4b5563;
+  --theme-border: #e5e7eb;
+}
+
+/* Theme Color Mappings for the CV templates */
+.color-theme-sapphire {
+  --theme-primary: #2563eb;
+  --theme-secondary: #1d4ed8;
+  --theme-light: #eff6ff;
+  --theme-accent: #3b82f6;
+}
+
+.color-theme-emerald {
+  --theme-primary: #059669;
+  --theme-secondary: #047857;
+  --theme-light: #ecfdf5;
+  --theme-accent: #10b981;
+}
+
+.color-theme-obsidian {
+  --theme-primary: #1f2937;
+  --theme-secondary: #111827;
+  --theme-light: #f3f4f6;
+  --theme-accent: #4b5563;
+}
+
+.color-theme-amber {
+  --theme-primary: #d97706;
+  --theme-secondary: #b45309;
+  --theme-light: #fef3c7;
+  --theme-accent: #f59e0b;
+}
+
+.color-theme-rosewood {
+  --theme-primary: #be123c;
+  --theme-secondary: #9f1239;
+  --theme-light: #fff1f2;
+  --theme-accent: #e11d48;
+}
+
+/* ==========================================================================
+   BASE STYLES & RESET
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-app);
+}
+::-webkit-scrollbar-thumb {
+  background: #272d3d;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3b4252;
+}
+
+/* ==========================================================================
+   APP HEADER & SHELL LAYOUT
+   ========================================================================== */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.app-header {
+  height: 70px;
+  background: var(--bg-panel-solid);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10;
+  box-shadow: var(--shadow-md);
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  background: var(--accent-gradient);
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: var(--shadow-glow);
+}
+
+.logo-icon i {
+  width: 22px;
+  height: 22px;
+}
+
+.logo-text h1 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.logo-text span {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border-color);
+  margin: 0 4px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--accent-color);
+  color: white;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+}
+.btn-primary:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border-color);
+  color: var(--text-main);
+}
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn-danger {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+.btn-danger:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  border-radius: 6px;
+}
+
+.btn-xs {
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   WORKSPACE GRID
+   ========================================================================== */
+.workspace {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  height: calc(100vh - 70px);
+}
+
+/* Editor Panel (Left) */
+.editor-panel {
+  width: 450px;
+  background: var(--bg-panel-solid);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.editor-tabs {
+  width: 80px;
+  background: rgba(0, 0, 0, 0.2);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  gap: 16px;
+  overflow-y: auto;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.65rem;
+  font-weight: 500;
+}
+
+.tab-btn i {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease;
+}
+
+.tab-btn:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tab-btn:hover i {
+  transform: translateY(-2px);
+}
+
+.tab-btn.active {
+  color: var(--accent-color);
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.editor-content-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tab-content h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: white;
+}
+
+.section-desc {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   FORM CONTROLS
+   ========================================================================== */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="url"],
+textarea,
+select.form-select {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: white;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+input:focus,
+textarea:focus,
+select.form-select:focus {
+  border-color: var(--border-focus);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* Repeating items list styling (Job, Edu, Projects) */
+.section-header-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.section-header-flex h2 {
+  margin-bottom: 0;
+}
+
+.repeating-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 16px;
+  position: relative;
+  transition: border-color 0.2s ease;
+}
+
+.repeating-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.card-remove-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.card-remove-btn:hover {
+  color: #ef4444;
+}
+
+.card-drag-handle {
+  display: none; /* Add order controls explicitly inside card */
+}
+
+.card-order-controls {
+  display: flex;
+  gap: 4px;
+  position: absolute;
+  top: 14px;
+  right: 40px;
+}
+
+.order-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 2px;
+}
+.order-btn:hover {
+  color: white;
+}
+
+/* Extra Section Nesting */
+.nested-section-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 20px;
+}
+
+.nested-section-card h3 {
+  font-size: 1.1rem;
+  color: white;
+  font-weight: 600;
+}
+
+.repeating-list.mini .repeating-card {
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.repeating-list.mini .card-remove-btn {
+  top: 10px;
+  right: 10px;
+}
+
+/* ==========================================================================
+   PREVIEW PANEL & CONTROLS (Right)
+   ========================================================================== */
+.preview-panel {
+  flex: 1;
+  background: #1e2530;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.preview-controls {
+  background: var(--bg-panel-solid);
+  border-bottom: 1px solid var(--border-color);
+  padding: 12px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  z-index: 5;
+  box-shadow: var(--shadow-sm);
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.control-group label {
+  font-size: 0.7rem;
+  margin-bottom: 0;
+}
+
+/* Template Select Buttons */
+.template-selector-buttons {
+  display: flex;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 3px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.selector-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.selector-btn i {
+  width: 14px;
+  height: 14px;
+}
+
+.selector-btn:hover {
+  color: white;
+}
+
+.selector-btn.active {
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Color Palette Dots */
+.color-palette-picker {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  height: 32px;
+}
+
+.color-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.color-dot:hover {
+  transform: scale(1.15);
+}
+
+.color-dot.active {
+  border-color: white;
+  transform: scale(1.2);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Font and margin select sizing */
+select.form-select {
+  padding: 6px 30px 6px 12px;
+  font-size: 0.8rem;
+  height: 34px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='rgba(255,255,255,0.5)' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Zoom Slider Custom styling */
+.zoom-group {
+  min-width: 120px;
+}
+
+#slider-zoom {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+  cursor: pointer;
+}
+
+#slider-zoom::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+#slider-zoom::-webkit-slider-thumb:hover {
+  background: #2563eb;
+}
+
+/* Sheet Viewport */
+.sheet-viewport {
+  flex: 1;
+  overflow: auto;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  scroll-behavior: smooth;
+}
+
+/* ==========================================================================
+   CV PAPER PREVIEW (A4 SIMULATED SHEETS)
+   ========================================================================== */
+.cv-sheet {
+  background: #ffffff;
+  width: 210mm;
+  min-height: 297mm;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  box-sizing: border-box;
+  color: var(--theme-text);
+  line-height: 1.5;
+  transition: transform 0.2s cubic-bezier(0.1, 0.8, 0.25, 1);
+  transform-origin: top center;
+}
+
+/* Inner Layout spacing rules */
+.cv-layout-wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Margins settings applied dynamically */
+.margin-compact {
+  padding: 12mm 15mm;
+}
+.margin-normal {
+  padding: 20mm 20mm;
+}
+.margin-wide {
+  padding: 28mm 25mm;
+}
+
+/* Typography styles applied dynamically */
+.font-inter { font-family: 'Inter', sans-serif; }
+.font-outfit { font-family: 'Outfit', sans-serif; }
+.font-roboto { font-family: 'Roboto', sans-serif; }
+.font-lora { font-family: 'Lora', serif; }
+.font-playfair { font-family: 'Playfair Display', serif; }
+
+/* Document generic styling */
+.cv-header {
+  margin-bottom: 24px;
+}
+
+.cv-title-name {
+  font-size: 24pt;
+  font-weight: 700;
+  color: var(--theme-primary);
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.cv-title-role {
+  font-size: 13pt;
+  font-weight: 500;
+  color: var(--theme-accent);
+  margin-bottom: 12px;
+}
+
+.cv-contacts-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  row-gap: 6px;
+  font-size: 9pt;
+  color: var(--theme-text-light);
+  border-top: 1px solid var(--theme-border);
+  border-bottom: 1px solid var(--theme-border);
+  padding: 8px 0;
+}
+
+.cv-contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cv-contact-item i {
+  color: var(--theme-primary);
+  width: 12px;
+  height: 12px;
+}
+
+.cv-contact-item a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cv-contact-item a:hover {
+  text-decoration: underline;
+  color: var(--theme-primary);
+}
+
+/* Dynamic grid base */
+.cv-body-grid {
+  display: grid;
+  gap: 24px;
+}
+
+.pv-section {
+  margin-bottom: 20px;
+}
+
+.pv-section:last-child {
+  margin-bottom: 0;
+}
+
+.section-title {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-size: 13pt;
+  font-weight: 700;
+  color: var(--theme-primary);
+  margin-bottom: 12px;
+  border-bottom: 1.5px solid var(--theme-primary);
+  padding-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.summary-text {
+  font-size: 10pt;
+  color: var(--theme-text-light);
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+/* Repeating blocks styling in preview */
+.pv-item {
+  margin-bottom: 14px;
+}
+.pv-item:last-child {
+  margin-bottom: 0;
+}
+
+.pv-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4px;
+}
+
+.pv-item-title-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.pv-item-title {
+  font-size: 10.5pt;
+  font-weight: 600;
+  color: var(--theme-text);
+}
+
+.pv-item-subtitle {
+  font-size: 9.5pt;
+  font-weight: 500;
+  color: var(--theme-accent);
+}
+
+.pv-item-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 9pt;
+  color: var(--theme-text-light);
+}
+
+.pv-item-date {
+  font-weight: 500;
+}
+
+.pv-item-location {
+  font-style: italic;
+}
+
+.pv-item-desc {
+  font-size: 9.5pt;
+  color: var(--theme-text-light);
+  line-height: 1.5;
+  white-space: pre-line;
+  margin-top: 4px;
+}
+
+/* Bullet list inside description formatting */
+.pv-item-desc ul {
+  padding-left: 18px;
+  margin-top: 4px;
+}
+
+.pv-item-desc li {
+  margin-bottom: 2px;
+}
+
+/* Skills styling */
+.pv-skills-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pv-skill-group {
+  margin-bottom: 8px;
+}
+
+.pv-skill-group-title {
+  font-size: 9.5pt;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--theme-text);
+}
+
+.pv-skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pv-skill-badge {
+  background: var(--theme-light);
+  color: var(--theme-secondary);
+  font-size: 8.5pt;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(37, 99, 235, 0.08);
+}
+
+/* Languages and simple list blocks */
+.pv-languages-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+.pv-language-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9.5pt;
+}
+
+.pv-lang-name {
+  font-weight: 500;
+}
+.pv-lang-level {
+  color: var(--theme-text-light);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   CV SPECIFIC TEMPLATE SCHEMES (Visual Rules)
+   ========================================================================== */
+
+/* --- 1. MODERN EXECUTIVE TEMPLATE --- */
+.template-modern .cv-body-grid {
+  grid-template-columns: 1.7fr 1fr;
+  gap: 28px;
+}
+
+.template-modern .cv-header {
+  border-bottom: 3px solid var(--theme-primary);
+  padding-bottom: 16px;
+}
+
+.template-modern .cv-contacts-grid {
+  border: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+/* --- 2. MINIMALIST ATS TEMPLATE --- */
+.template-ats {
+  padding: 15mm 15mm !important;
+}
+
+.template-ats .cv-header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.template-ats .cv-title-name {
+  font-size: 20pt;
+  margin-bottom: 2px;
+}
+
+.template-ats .cv-title-role {
+  font-size: 11pt;
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+.template-ats .cv-contacts-grid {
+  justify-content: center;
+  border: none;
+  border-top: 1px solid #7f8c8d;
+  border-bottom: 1px solid #7f8c8d;
+  padding: 4px 0;
+}
+
+.template-ats .cv-body-grid {
+  display: block; /* Linear single column */
+}
+
+.template-ats .cv-main-col,
+.template-ats .cv-sidebar-col {
+  width: 100% !important;
+}
+
+.template-ats .pv-section {
+  margin-bottom: 14px;
+}
+
+.template-ats .section-title {
+  font-size: 11pt;
+  border-bottom: 1px solid #333333;
+  margin-bottom: 8px;
+  padding-bottom: 2px;
+}
+
+.template-ats .pv-item {
+  margin-bottom: 8px;
+}
+
+.template-ats .pv-item-header {
+  margin-bottom: 2px;
+}
+
+.template-ats .pv-item-title-row {
+  flex-direction: row;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.template-ats .pv-item-title {
+  font-size: 10pt;
+}
+
+.template-ats .pv-item-subtitle {
+  font-size: 9.5pt;
+  font-weight: normal;
+  color: var(--theme-text);
+}
+
+.template-ats .pv-item-subtitle::before {
+  content: "| ";
+  font-weight: normal;
+  color: var(--theme-text-light);
+}
+
+.template-ats .pv-item-meta {
+  flex-direction: row;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 9.5pt;
+}
+
+.template-ats .pv-item-location::before {
+  content: "- ";
+}
+
+.template-ats .pv-item-desc {
+  font-size: 9pt;
+  margin-top: 1px;
+}
+
+.template-ats .pv-skills-container {
+  display: block;
+}
+
+.template-ats .pv-skill-group {
+  margin-bottom: 4px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.template-ats .pv-skill-group-title {
+  font-size: 9.5pt;
+  width: 120px;
+  flex-shrink: 0;
+  margin-bottom: 0;
+}
+
+.template-ats .pv-skills-tags {
+  display: inline;
+}
+
+.template-ats .pv-skill-badge {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--theme-text);
+  font-size: 9.5pt;
+}
+
+.template-ats .pv-skill-badge::after {
+  content: ", ";
+}
+
+.template-ats .pv-skill-badge:last-child::after {
+  content: "";
+}
+
+.template-ats .pv-languages-container {
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+}
+
+.template-ats .pv-language-item {
+  justify-content: flex-start;
+  gap: 6px;
+}
+
+/* --- 3. CREATIVE TECH GRID TEMPLATE --- */
+.template-creative .cv-header {
+  background: var(--theme-primary);
+  margin: -20mm -20mm 24px -20mm;
+  padding: 24px 20mm;
+  color: white;
+}
+.margin-compact.template-creative .cv-header {
+  margin: -12mm -15mm 20px -15mm;
+  padding: 18px 15mm;
+}
+.margin-wide.template-creative .cv-header {
+  margin: -28mm -25mm 28px -25mm;
+  padding: 30px 25mm;
+}
+
+.template-creative .cv-title-name {
+  color: white;
+}
+.template-creative .cv-title-role {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.template-creative .cv-contacts-grid {
+  border: none;
+  padding: 0;
+  margin-top: 14px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.template-creative .cv-contact-item i {
+  color: white;
+}
+
+.template-creative .cv-body-grid {
+  grid-template-columns: 1.6fr 1.4fr;
+  gap: 30px;
+}
+
+.template-creative .section-title {
+  border-bottom: none;
+  background: var(--theme-light);
+  padding: 6px 12px;
+  border-left: 4px solid var(--theme-primary);
+  border-radius: 0 6px 6px 0;
+}
+
+.template-creative .pv-item {
+  background: #fafafa;
+  border: 1px solid #f0f0f0;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.template-creative .pv-skill-badge {
+  background: var(--theme-primary);
+  color: white;
+  border: none;
+}
+
+/* ==========================================================================
+   UTILITY CLASSES
+   ========================================================================== */
+.hidden {
+  display: none !important;
+}
+
+/* ==========================================================================
+   PRINT STYLESHEET (@media print)
+   ========================================================================== */
+@media print {
+  body {
+    background: #ffffff;
+    color: #000000;
+  }
+
+  /* Hide app dashboard, editor panels, settings, preview helpers */
+  .no-print,
+  .app-header,
+  .editor-panel,
+  .preview-controls,
+  ::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .app-container,
+  .workspace,
+  .sheet-viewport {
+    display: block !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: none !important;
+  }
+
+  .cv-sheet {
+    box-shadow: none !important;
+    transform: scale(1) !important;
+    margin: 0 !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    border: none !important;
+    page-break-after: avoid;
+    page-break-before: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Prevent broken pages inside element cards */
+  .pv-section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .pv-item {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Force background colors to print */
+  .pv-skill-badge {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResumeFlow | Free Professional & ATS-Friendly CV Builder</title>
+  <meta name="description"
+    content="Build professional, ATS-friendly resumes for free. Pick from modern templates, customize typography and colors, and export as PDF. Complete data privacy.">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Roboto:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <!-- App Container -->
+  <div class="app-container">
+    <!-- Top Action Navigation -->
+    <header class="app-header no-print">
+      <div class="header-logo">
+        <div class="logo-icon">
+          <i data-lucide="sparkles"></i>
+        </div>
+        <div class="logo-text">
+          <h1>ResumeFlow</h1>
+          <span>Professional CV Builder</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btn-load-sample" class="btn btn-secondary" title="Pre-fill with template data to see how it looks">
+          <i data-lucide="database"></i>
+
+        </button>
+        <button id="btn-clear" class="btn btn-danger" title="Clear all data">
+          <i data-lucide="trash-2"></i>
+
+        </button>
+        <button id="btn-download-pdf" class="btn btn-primary"
+          title="Export as PDF using print settings (ATS compliant)">
+          <i data-lucide="file-text"></i>
+          <span>Download PDF</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="workspace">
+      <!-- Editor Sidebar (Left Panel) -->
+      <section class="editor-panel no-print" aria-label="Resume Editor">
+        <!-- Editor Tabs -->
+        <nav class="editor-tabs" role="tablist">
+          <button class="tab-btn active" data-tab="tab-profile" role="tab" aria-selected="true">
+            <i data-lucide="user"></i>
+            <span>Profile</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-experience" role="tab" aria-selected="false">
+            <i data-lucide="briefcase"></i>
+            <span>Experience</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-education" role="tab" aria-selected="false">
+            <i data-lucide="graduation-cap"></i>
+            <span>Education</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-projects" role="tab" aria-selected="false">
+            <i data-lucide="folder-git-2"></i>
+            <span>Projects</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-skills" role="tab" aria-selected="false">
+            <i data-lucide="award"></i>
+            <span>Skills</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-extra" role="tab" aria-selected="false">
+            <i data-lucide="plus-circle"></i>
+            <span>More</span>
+          </button>
+        </nav>
+
+        <!-- Editor Content Sections -->
+        <div class="editor-content-container">
+
+          <!-- Profile Section -->
+          <div id="tab-profile" class="tab-content active">
+            <h2>Personal Information</h2>
+            <p class="section-desc">Add details for employers to get in touch with you.</p>
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="profile-name">Full Name</label>
+                <input type="text" id="profile-name" placeholder="John Doe">
+              </div>
+              <div class="form-group">
+                <label for="profile-title">Professional Title</label>
+                <input type="text" id="profile-title" placeholder="e.g. Marketing Manager, Accountant, Teacher">
+              </div>
+            </div>
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="profile-email">Email Address</label>
+                <input type="email" id="profile-email" placeholder="john.doe@example.com">
+              </div>
+              <div class="form-group">
+                <label for="profile-phone">Phone Number</label>
+                <input type="tel" id="profile-phone" placeholder="+1 (555) 123-4567">
+              </div>
+            </div>
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="profile-location">Location</label>
+                <input type="text" id="profile-location" placeholder="New York, NY">
+              </div>
+              <div class="form-group">
+                <label for="profile-website">Website / Portfolio</label>
+                <input type="url" id="profile-website" placeholder="yourwebsite.com">
+              </div>
+            </div>
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="profile-linkedin">LinkedIn Profile</label>
+                <input type="url" id="profile-linkedin" placeholder="linkedin.com/in/johndoe">
+              </div>
+              <div class="form-group">
+                <label for="profile-github">Other Profile Link</label>
+                <input type="url" id="profile-github" placeholder="e.g. behance.net/you, github.com/you">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="profile-summary">Professional Summary</label>
+              <textarea id="profile-summary" rows="5"
+                placeholder="Write a short summary of your background, expertise, and what value you bring to a role..."></textarea>
+            </div>
+          </div>
+
+          <!-- Experience Section -->
+          <div id="tab-experience" class="tab-content">
+            <div class="section-header-flex">
+              <h2>Work Experience</h2>
+              <button id="btn-add-experience" class="btn btn-sm btn-secondary">
+                <i data-lucide="plus"></i> Add Job
+              </button>
+            </div>
+            <p class="section-desc">Detail your career history. Highlight responsibilities, achievements, and results.
+            </p>
+            <div id="experience-list" class="repeating-list">
+              <!-- Dynamically populated experience forms -->
+            </div>
+          </div>
+
+          <!-- Education Section -->
+          <div id="tab-education" class="tab-content">
+            <div class="section-header-flex">
+              <h2>Education</h2>
+              <button id="btn-add-education" class="btn btn-sm btn-secondary">
+                <i data-lucide="plus"></i> Add Education
+              </button>
+            </div>
+            <p class="section-desc">List your degrees, institutions, academic honors, and coursework details.</p>
+            <div id="education-list" class="repeating-list">
+              <!-- Dynamically populated education forms -->
+            </div>
+          </div>
+
+          <!-- Projects Section -->
+          <div id="tab-projects" class="tab-content">
+            <div class="section-header-flex">
+              <h2>Projects</h2>
+              <button id="btn-add-project" class="btn btn-sm btn-secondary">
+                <i data-lucide="plus"></i> Add Project
+              </button>
+            </div>
+            <p class="section-desc">Highlight personal projects, volunteer work, freelance assignments, or notable
+              achievements.</p>
+            <div id="project-list" class="repeating-list">
+              <!-- Dynamically populated projects forms -->
+            </div>
+          </div>
+
+          <!-- Skills Section -->
+          <div id="tab-skills" class="tab-content">
+            <div class="section-header-flex">
+              <h2>Skills</h2>
+              <button id="btn-add-skill-group" class="btn btn-sm btn-secondary">
+                <i data-lucide="plus"></i> Add Skill Group
+              </button>
+            </div>
+            <p class="section-desc">Group your skills (e.g., "Technical", "Communication", "Management") for easy
+              scanning.</p>
+            <div id="skills-list" class="repeating-list">
+              <!-- Dynamically populated skills forms -->
+            </div>
+          </div>
+
+          <!-- Extra Section (Languages, Certifications, Custom) -->
+          <div id="tab-extra" class="tab-content">
+            <h2>Additional Information</h2>
+            <p class="section-desc">Add details that make you stand out, such as languages and industry credentials.</p>
+
+            <!-- Certifications Sub-Section -->
+            <div class="nested-section-card">
+              <div class="section-header-flex">
+                <h3>Certifications</h3>
+                <button id="btn-add-certification" class="btn btn-xs btn-secondary">
+                  <i data-lucide="plus"></i> Add
+                </button>
+              </div>
+              <div id="certifications-list" class="repeating-list mini">
+                <!-- Certifications -->
+              </div>
+            </div>
+
+            <!-- Languages Sub-Section -->
+            <div class="nested-section-card">
+              <div class="section-header-flex">
+                <h3>Languages</h3>
+                <button id="btn-add-language" class="btn btn-xs btn-secondary">
+                  <i data-lucide="plus"></i> Add
+                </button>
+              </div>
+              <div id="languages-list" class="repeating-list mini">
+                <!-- Languages -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Live Preview Container (Right Panel) -->
+      <section class="preview-panel" aria-label="Resume Live Preview">
+
+        <!-- Preview Controls Header -->
+        <div class="preview-controls no-print">
+          <!-- Template selector -->
+          <div class="control-group">
+            <label>Template</label>
+            <div class="template-selector-buttons">
+              <button class="selector-btn active" data-template="template-modern"
+                title="Modern design with a stylish sidebar">
+                <i data-lucide="layout-sidebar"></i> Modern
+              </button>
+              <button class="selector-btn" data-template="template-ats"
+                title="Pure classic design, optimal for ATS systems">
+                <i data-lucide="align-left"></i> ATS Simple
+              </button>
+              <button class="selector-btn" data-template="template-creative"
+                title="Sleek layouts, cards, and accent badges">
+                <i data-lucide="layout-grid"></i> Tech Grid
+              </button>
+            </div>
+          </div>
+
+          <!-- Color palette picker -->
+          <div class="control-group">
+            <label>Color Theme</label>
+            <div class="color-palette-picker">
+              <button class="color-dot active" data-color="sapphire" style="background: #2563eb;"
+                title="Royal Sapphire"></button>
+              <button class="color-dot" data-color="emerald" style="background: #059669;"
+                title="Emerald Trust"></button>
+              <button class="color-dot" data-color="obsidian" style="background: #1f2937;"
+                title="Sleek Obsidian"></button>
+              <button class="color-dot" data-color="amber" style="background: #d97706;" title="Warm Amber"></button>
+              <button class="color-dot" data-color="rosewood" style="background: #be123c;"
+                title="Elegant Rosewood"></button>
+            </div>
+          </div>
+
+          <!-- Font picker -->
+          <div class="control-group">
+            <label>Typography</label>
+            <select id="select-font" class="form-select">
+              <option value="font-inter" selected>Inter (Sans-Serif)</option>
+              <option value="font-outfit">Outfit (Modern)</option>
+              <option value="font-roboto">Roboto (Clean)</option>
+              <option value="font-lora">Lora (Elegant Serif)</option>
+              <option value="font-playfair">Playfair Display (Classy)</option>
+            </select>
+          </div>
+
+          <!-- Spacing & Sizing parameters -->
+          <div class="control-group">
+            <label>Margins</label>
+            <select id="select-margins" class="form-select">
+              <option value="margin-compact">Compact</option>
+              <option value="margin-normal" selected>Normal</option>
+              <option value="margin-wide">Wide</option>
+            </select>
+          </div>
+
+          <!-- Zoom Slider -->
+          <div class="control-group zoom-group">
+            <label>Zoom (<span id="zoom-label">100%</span>)</label>
+            <input type="range" id="slider-zoom" min="50" max="150" value="100" step="5">
+          </div>
+        </div>
+
+        <!-- Sheet Workspace (simulated paper) -->
+        <div class="sheet-viewport">
+          <div id="cv-preview" class="cv-sheet template-modern font-inter margin-normal color-theme-sapphire">
+
+            <!-- Layout template wrappers will dynamically apply styles here -->
+            <div class="cv-layout-wrapper">
+
+              <!-- HEADER SECTION -->
+              <header class="cv-header">
+                <div class="cv-header-text">
+                  <h1 id="pv-name" class="cv-title-name">Your Full Name</h1>
+                  <h2 id="pv-title" class="cv-title-role">Professional Subtitle or Role</h2>
+                </div>
+                <div class="cv-contacts-grid" id="pv-contacts">
+                  <!-- Generated contacts like email, phone, location, site -->
+                </div>
+              </header>
+
+              <!-- SIDEBAR & MAIN CONTAINER (Used in Modern Layout) -->
+              <div class="cv-body-grid">
+
+                <!-- Main Content Column -->
+                <div class="cv-main-col">
+                  <!-- Summary Section -->
+                  <section id="pv-section-summary" class="pv-section">
+                    <h3 class="section-title">Professional Summary</h3>
+                    <p id="pv-summary-content" class="summary-text">A summary will appear here once you write it in the
+                      editor.</p>
+                  </section>
+
+                  <!-- Work Experience Section -->
+                  <section id="pv-section-experience" class="pv-section">
+                    <h3 class="section-title">Work Experience</h3>
+                    <div id="pv-experience-list" class="pv-list">
+                      <!-- Rendered jobs -->
+                    </div>
+                  </section>
+
+                  <!-- Projects Section -->
+                  <section id="pv-section-projects" class="pv-section">
+                    <h3 class="section-title">Projects</h3>
+                    <div id="pv-project-list" class="pv-list">
+                      <!-- Rendered projects -->
+                    </div>
+                  </section>
+                </div>
+
+                <!-- Sidebar Content Column (or right column depending on styling) -->
+                <div class="cv-sidebar-col">
+                  <!-- Education Section -->
+                  <section id="pv-section-education" class="pv-section">
+                    <h3 class="section-title">Education</h3>
+                    <div id="pv-education-list" class="pv-list">
+                      <!-- Rendered education -->
+                    </div>
+                  </section>
+
+                  <!-- Skills Section -->
+                  <section id="pv-section-skills" class="pv-section">
+                    <h3 class="section-title">Skills</h3>
+                    <div id="pv-skills-list" class="pv-skills-container">
+                      <!-- Rendered skills -->
+                    </div>
+                  </section>
+
+                  <!-- Certifications Section -->
+                  <section id="pv-section-certifications" class="pv-section">
+                    <h3 class="section-title">Certifications</h3>
+                    <div id="pv-certifications-list" class="pv-list">
+                      <!-- Rendered certifications -->
+                    </div>
+                  </section>
+
+                  <!-- Languages Section -->
+                  <section id="pv-section-languages" class="pv-section">
+                    <h3 class="section-title">Languages</h3>
+                    <div id="pv-languages-list" class="pv-languages-container">
+                      <!-- Rendered languages -->
+                    </div>
+                  </section>
+                </div>
+
+              </div> <!-- End cv-body-grid -->
+
+            </div> <!-- End cv-layout-wrapper -->
+          </div> <!-- End cv-sheet -->
+        </div> <!-- End sheet-viewport -->
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

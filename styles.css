@@ -1,27 +1,27 @@
 /* ==========================================================================
-   DESIGN SYSTEM & THEME TOKENS
+   ResumeFlow — "Stationery Studio" theme
+   Warm paper, ink and a rubber-stamp accent. Designed to feel hand-made.
    ========================================================================== */
 :root {
-  /* UI Theme (Application Interface) */
-  --bg-app: #0b0f19;
-  --bg-panel: rgba(17, 24, 39, 0.7);
-  --bg-panel-solid: #111827;
-  --border-color: rgba(255, 255, 255, 0.08);
-  --border-focus: #3b82f6;
-  
-  --text-main: #f3f4f6;
-  --text-muted: #9ca3af;
-  --text-dark: #1f2937;
-  
-  --accent-color: #3b82f6;
-  --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
-  
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
-  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.3);
-  --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.25);
-  
-  /* CV Document Variable Placeholders (dynamically overwritten by theme selector) */
+  /* App theme */
+  --paper: #f4efe3;
+  --paper-deep: #e7ddc6;
+  --card: #fffdf7;
+  --ink: #23201b;
+  --ink-soft: #5d554a;
+  --ink-faint: #8d8474;
+  --line: #d8ccb0;
+  --line-soft: #e6dbc2;
+  --accent: #b3402a;
+  --accent-deep: #8c301f;
+  --accent-soft: #f6e3d7;
+  --gold: #c99a2e;
+
+  --shadow-card: 2px 2px 0 rgba(35, 32, 27, 0.10);
+  --shadow-pop: 3px 3px 0 rgba(35, 32, 27, 0.16);
+  --radius: 10px;
+
+  /* CV document theme placeholders (overwritten by picker) */
   --theme-primary: #2563eb;
   --theme-secondary: #1d4ed8;
   --theme-light: #eff6ff;
@@ -31,35 +31,31 @@
   --theme-border: #e5e7eb;
 }
 
-/* Theme Color Mappings for the CV templates */
+/* Theme color mappings for the CV templates */
 .color-theme-sapphire {
   --theme-primary: #2563eb;
   --theme-secondary: #1d4ed8;
   --theme-light: #eff6ff;
   --theme-accent: #3b82f6;
 }
-
 .color-theme-emerald {
   --theme-primary: #059669;
   --theme-secondary: #047857;
   --theme-light: #ecfdf5;
   --theme-accent: #10b981;
 }
-
 .color-theme-obsidian {
   --theme-primary: #1f2937;
   --theme-secondary: #111827;
   --theme-light: #f3f4f6;
   --theme-accent: #4b5563;
 }
-
 .color-theme-amber {
   --theme-primary: #d97706;
   --theme-secondary: #b45309;
   --theme-light: #fef3c7;
   --theme-accent: #f59e0b;
 }
-
 .color-theme-rosewood {
   --theme-primary: #be123c;
   --theme-secondary: #9f1239;
@@ -68,7 +64,7 @@
 }
 
 /* ==========================================================================
-   BASE STYLES & RESET
+   BASE
    ========================================================================== */
 * {
   margin: 0;
@@ -76,32 +72,57 @@
   box-sizing: border-box;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   font-family: 'Inter', sans-serif;
-  background-color: var(--bg-app);
-  color: var(--text-main);
+  background-color: var(--paper);
+  color: var(--ink);
   min-height: 100vh;
   overflow-x: hidden;
 }
 
-/* Scrollbar Styling */
+/* Faint paper grain so the surface feels tactile, not digital */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2000;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: var(--accent-soft);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Scrollbars */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg-app);
+  background: var(--paper-deep);
 }
 ::-webkit-scrollbar-thumb {
-  background: #272d3d;
-  border-radius: 4px;
+  background: #c9bb9c;
+  border-radius: 6px;
+  border: 2px solid var(--paper-deep);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3b4252;
+  background: var(--ink-faint);
 }
 
 /* ==========================================================================
-   APP HEADER & SHELL LAYOUT
+   APP HEADER
    ========================================================================== */
 .app-container {
   display: flex;
@@ -110,202 +131,229 @@ body {
 }
 
 .app-header {
-  height: 70px;
-  background: var(--bg-panel-solid);
-  border-bottom: 1px solid var(--border-color);
-  padding: 0 24px;
+  min-height: 72px;
+  background: var(--paper);
+  border-bottom: 2px solid var(--ink);
+  padding: 10px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
   z-index: 10;
-  box-shadow: var(--shadow-md);
 }
 
 .header-logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
+/* Rubber-stamp monogram */
 .logo-icon {
-  background: var(--accent-gradient);
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  background: var(--ink);
+  color: var(--paper);
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  box-shadow: var(--shadow-glow);
-}
-
-.logo-icon i {
-  width: 22px;
-  height: 22px;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: -0.5px;
+  transform: rotate(-4deg);
+  box-shadow: 2px 2px 0 var(--accent);
+  user-select: none;
 }
 
 .logo-text h1 {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.25rem;
+  font-family: 'Fraunces', serif;
+  font-size: 1.45rem;
   font-weight: 700;
   letter-spacing: -0.5px;
-  line-height: 1.2;
+  line-height: 1.1;
 }
 
 .logo-text span {
-  font-size: 0.75rem;
-  color: var(--text-muted);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  font-style: italic;
+  font-family: 'Fraunces', serif;
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.divider {
-  width: 1px;
-  height: 24px;
-  background: var(--border-color);
-  margin: 0 4px;
-}
-
-/* Buttons */
+/* Buttons — ink stamp style */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   padding: 10px 18px;
+  min-height: 42px;
   border-radius: 8px;
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
+  font-family: inherit;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid transparent;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s ease;
+  border: 1px solid var(--ink);
   text-decoration: none;
+  background: var(--card);
+  color: var(--ink);
+}
+
+.btn svg,
+.btn i {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
 }
 
 .btn-primary {
-  background: var(--accent-color);
-  color: white;
-  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+  background: var(--ink);
+  color: #f7f2e6;
+  box-shadow: 2px 2px 0 var(--accent);
 }
 .btn-primary:hover {
-  background: #2563eb;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+  background: #38332b;
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--accent);
+}
+.btn-primary:active {
+  transform: translate(1px, 1px);
+  box-shadow: 0 0 0 var(--accent);
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: var(--border-color);
-  color: var(--text-main);
+  background: var(--card);
+  border-color: #c9bb9c;
+  color: var(--ink);
+  box-shadow: var(--shadow-card);
 }
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--ink);
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-pop);
+}
+.btn-secondary:active {
+  transform: translate(1px, 1px);
+  box-shadow: none;
 }
 
 .btn-danger {
-  background: rgba(239, 68, 68, 0.1);
-  border-color: rgba(239, 68, 68, 0.2);
-  color: #f87171;
+  background: var(--card);
+  border-color: #d8a090;
+  color: var(--accent);
+  box-shadow: var(--shadow-card);
 }
 .btn-danger:hover {
-  background: rgba(239, 68, 68, 0.2);
-  color: #ef4444;
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-pop);
 }
 
 .btn-sm {
-  padding: 6px 12px;
+  padding: 7px 13px;
+  min-height: 36px;
   font-size: 0.8rem;
-  border-radius: 6px;
+  border-radius: 7px;
 }
 
 .btn-xs {
-  padding: 4px 8px;
+  padding: 5px 10px;
+  min-height: 30px;
   font-size: 0.75rem;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 /* ==========================================================================
-   WORKSPACE GRID
+   WORKSPACE
    ========================================================================== */
 .workspace {
   display: flex;
   flex: 1;
   overflow: hidden;
-  height: calc(100vh - 70px);
+  min-height: 0;
 }
 
-/* Editor Panel (Left) */
+/* Editor panel */
 .editor-panel {
-  width: 450px;
-  background: var(--bg-panel-solid);
-  border-right: 1px solid var(--border-color);
+  width: 460px;
+  background: var(--paper);
+  border-right: 1px solid var(--line);
   display: flex;
   flex-direction: row;
   flex-shrink: 0;
   overflow: hidden;
+  min-height: 0;
 }
 
 .editor-tabs {
-  width: 80px;
-  background: rgba(0, 0, 0, 0.2);
-  border-right: 1px solid var(--border-color);
+  width: 88px;
+  flex-shrink: 0;
+  background: rgba(35, 32, 27, 0.045);
+  border-right: 1px solid var(--line);
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 16px 0;
-  gap: 16px;
+  gap: 10px;
   overflow-y: auto;
 }
 
 .tab-btn {
   background: none;
-  border: none;
-  color: var(--text-muted);
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
+  border: 1px solid transparent;
+  color: var(--ink-soft);
+  width: 68px;
+  min-height: 64px;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 6px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 0.65rem;
-  font-weight: 500;
+  transition: background 0.15s ease, color 0.15s ease;
+  font-size: 0.66rem;
+  font-weight: 600;
+  font-family: inherit;
+  padding: 8px 4px;
 }
 
+.tab-btn svg,
 .tab-btn i {
   width: 20px;
   height: 20px;
-  transition: transform 0.2s ease;
 }
 
 .tab-btn:hover {
-  color: var(--text-main);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.tab-btn:hover i {
-  transform: translateY(-2px);
+  color: var(--ink);
+  background: rgba(35, 32, 27, 0.06);
 }
 
 .tab-btn.active {
-  color: var(--accent-color);
-  background: rgba(59, 130, 246, 0.1);
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  color: #f7f2e6;
+  background: var(--ink);
+  box-shadow: 2px 2px 0 var(--accent);
 }
 
 .editor-content-container {
   flex: 1;
   overflow-y: auto;
-  padding: 24px;
+  padding: 26px 24px 40px;
+  min-width: 0;
 }
 
 .tab-content {
@@ -314,31 +362,31 @@ body {
 
 .tab-content.active {
   display: block;
-  animation: fadeIn 0.3s ease-in-out;
+  animation: fadeIn 0.25s ease;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
+  from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .tab-content h2 {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.5rem;
+  font-family: 'Fraunces', serif;
+  font-size: 1.6rem;
   font-weight: 600;
+  letter-spacing: -0.3px;
   margin-bottom: 6px;
-  color: white;
 }
 
 .section-desc {
   font-size: 0.875rem;
-  color: var(--text-muted);
+  color: var(--ink-soft);
   margin-bottom: 24px;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 /* ==========================================================================
-   FORM CONTROLS
+   FORMS
    ========================================================================== */
 .form-group {
   margin-bottom: 16px;
@@ -347,17 +395,17 @@ body {
 .form-group-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 14px;
 }
 
 label {
   display: block;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ink-soft);
   margin-bottom: 6px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.7px;
 }
 
 input[type="text"],
@@ -367,39 +415,42 @@ input[type="url"],
 textarea,
 select.form-select {
   width: 100%;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
+  background: var(--card);
+  border: 1px solid #c9bb9c;
+  border-radius: 7px;
   padding: 10px 14px;
-  color: white;
+  min-height: 42px;
+  color: var(--ink);
   font-family: inherit;
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
+  font-size: 0.92rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
   outline: none;
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: rgba(255, 255, 255, 0.25);
+  color: #b3a78d;
 }
 
 input:focus,
 textarea:focus,
 select.form-select:focus {
-  border-color: var(--border-focus);
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(179, 64, 42, 0.14);
 }
 
 textarea {
   resize: vertical;
+  min-height: 90px;
+  line-height: 1.55;
 }
 
-/* Repeating items list styling (Job, Edu, Projects) */
+/* Repeating cards */
 .section-header-flex {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 10px;
   margin-bottom: 8px;
 }
 
@@ -408,104 +459,123 @@ textarea {
 }
 
 .repeating-card {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
   padding: 18px;
+  padding-top: 20px;
   margin-bottom: 16px;
   position: relative;
-  transition: border-color 0.2s ease;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.15s ease;
 }
 
 .repeating-card:hover {
-  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: var(--shadow-pop);
 }
 
 .card-remove-btn {
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 12px;
+  right: 12px;
   background: none;
   border: none;
-  color: var(--text-muted);
+  color: var(--ink-faint);
   cursor: pointer;
-  transition: color 0.2s ease;
+  padding: 6px;
+  border-radius: 6px;
+  line-height: 0;
 }
-
+.card-remove-btn svg,
+.card-remove-btn i {
+  width: 16px;
+  height: 16px;
+}
 .card-remove-btn:hover {
-  color: #ef4444;
+  color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .card-drag-handle {
-  display: none; /* Add order controls explicitly inside card */
+  display: none;
 }
 
 .card-order-controls {
   display: flex;
-  gap: 4px;
+  gap: 2px;
   position: absolute;
-  top: 14px;
-  right: 40px;
+  top: 12px;
+  right: 44px;
 }
 
 .order-btn {
   background: none;
   border: none;
-  color: var(--text-muted);
+  color: var(--ink-faint);
   cursor: pointer;
-  padding: 2px;
+  padding: 6px;
+  border-radius: 6px;
+  line-height: 0;
+}
+.order-btn svg,
+.order-btn i {
+  width: 14px;
+  height: 14px;
 }
 .order-btn:hover {
-  color: white;
+  color: var(--ink);
+  background: rgba(35, 32, 27, 0.07);
 }
 
-/* Extra Section Nesting */
+/* Nested extra sections */
 .nested-section-card {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
   padding: 18px;
   margin-bottom: 20px;
+  box-shadow: var(--shadow-card);
 }
 
 .nested-section-card h3 {
-  font-size: 1.1rem;
-  color: white;
+  font-family: 'Fraunces', serif;
+  font-size: 1.15rem;
   font-weight: 600;
 }
 
 .repeating-list.mini .repeating-card {
-  padding: 12px;
-  margin-bottom: 8px;
+  padding: 14px;
+  margin-bottom: 10px;
 }
 
 .repeating-list.mini .card-remove-btn {
-  top: 10px;
-  right: 10px;
+  top: 8px;
+  right: 8px;
 }
 
 /* ==========================================================================
-   PREVIEW PANEL & CONTROLS (Right)
+   PREVIEW PANEL
    ========================================================================== */
 .preview-panel {
   flex: 1;
-  background: #1e2530;
+  background: var(--paper-deep);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   position: relative;
+  min-width: 0;
+  min-height: 0;
 }
 
 .preview-controls {
-  background: var(--bg-panel-solid);
-  border-bottom: 1px solid var(--border-color);
-  padding: 12px 24px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  padding: 12px 20px;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 20px;
+  align-items: flex-end;
+  gap: 14px 22px;
   z-index: 5;
-  box-shadow: var(--shadow-sm);
 }
 
 .control-group {
@@ -515,65 +585,68 @@ textarea {
 }
 
 .control-group label {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   margin-bottom: 0;
 }
 
-/* Template Select Buttons */
 .template-selector-buttons {
   display: flex;
   gap: 4px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(35, 32, 27, 0.05);
   padding: 3px;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 .selector-btn {
   background: none;
   border: none;
-  color: var(--text-muted);
-  padding: 6px 12px;
+  color: var(--ink-soft);
+  padding: 7px 13px;
   border-radius: 6px;
   font-size: 0.8rem;
-  font-weight: 500;
+  font-weight: 600;
+  font-family: inherit;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: all 0.2s ease;
+  transition: background 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
 }
 
+.selector-btn svg,
 .selector-btn i {
   width: 14px;
   height: 14px;
 }
 
 .selector-btn:hover {
-  color: white;
+  color: var(--ink);
 }
 
 .selector-btn.active {
-  background: rgba(255, 255, 255, 0.08);
-  color: white;
-  box-shadow: var(--shadow-sm);
+  background: var(--ink);
+  color: #f7f2e6;
 }
 
-/* Color Palette Dots */
 .color-palette-picker {
   display: flex;
-  gap: 8px;
+  gap: 9px;
   align-items: center;
-  height: 32px;
+  min-height: 38px;
 }
 
 .color-dot {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  border: 2px solid transparent;
+  border: 2px solid rgba(35, 32, 27, 0.25);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.15s ease;
+  padding: 0;
 }
 
 .color-dot:hover {
@@ -581,107 +654,105 @@ textarea {
 }
 
 .color-dot.active {
-  border-color: white;
-  transform: scale(1.2);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  border-color: var(--ink);
+  transform: scale(1.18);
+  box-shadow: 0 0 0 2px var(--paper), 0 0 0 3.5px var(--ink);
 }
 
-/* Font and margin select sizing */
 select.form-select {
-  padding: 6px 30px 6px 12px;
-  font-size: 0.8rem;
-  height: 34px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='rgba(255,255,255,0.5)' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+  padding: 6px 32px 6px 12px;
+  font-size: 0.82rem;
+  min-height: 38px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%235d554a' stroke-width='2.4'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
-  background-size: 12px;
+  background-size: 13px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  cursor: pointer;
 }
 
-/* Zoom Slider Custom styling */
 .zoom-group {
-  min-width: 120px;
+  min-width: 130px;
 }
 
 #slider-zoom {
   -webkit-appearance: none;
+  appearance: none;
   width: 100%;
   height: 6px;
   border-radius: 3px;
-  background: rgba(255, 255, 255, 0.1);
+  background: #d8ccb0;
   outline: none;
   cursor: pointer;
 }
 
 #slider-zoom::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  background: var(--accent-color);
+  background: var(--card);
+  border: 2px solid var(--ink);
+  box-shadow: 1.5px 1.5px 0 var(--accent);
   cursor: pointer;
-  transition: background 0.15s ease;
 }
 
-#slider-zoom::-webkit-slider-thumb:hover {
-  background: #2563eb;
+#slider-zoom::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 2px solid var(--ink);
+  cursor: pointer;
 }
 
-/* Sheet Viewport */
+/* Sheet viewport — the "desk" */
 .sheet-viewport {
   flex: 1;
   overflow: auto;
-  padding: 40px;
+  padding: 44px 32px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   scroll-behavior: smooth;
+  min-height: 0;
 }
 
 /* ==========================================================================
-   CV PAPER PREVIEW (A4 SIMULATED SHEETS)
+   CV PAPER (A4 sheet) — unchanged document styles
    ========================================================================== */
 .cv-sheet {
   background: #ffffff;
   width: 210mm;
   min-height: 297mm;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 1px 2px rgba(35, 32, 27, 0.12), 0 16px 40px rgba(35, 32, 27, 0.20);
   position: relative;
   box-sizing: border-box;
   color: var(--theme-text);
   line-height: 1.5;
   transition: transform 0.2s cubic-bezier(0.1, 0.8, 0.25, 1);
   transform-origin: top center;
+  flex-shrink: 0;
 }
 
-/* Inner Layout spacing rules */
 .cv-layout-wrapper {
   height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-/* Margins settings applied dynamically */
-.margin-compact {
-  padding: 12mm 15mm;
-}
-.margin-normal {
-  padding: 20mm 20mm;
-}
-.margin-wide {
-  padding: 28mm 25mm;
-}
+.margin-compact { padding: 12mm 15mm; }
+.margin-normal { padding: 20mm 20mm; }
+.margin-wide { padding: 28mm 25mm; }
 
-/* Typography styles applied dynamically */
 .font-inter { font-family: 'Inter', sans-serif; }
 .font-outfit { font-family: 'Outfit', sans-serif; }
 .font-roboto { font-family: 'Roboto', sans-serif; }
 .font-lora { font-family: 'Lora', serif; }
 .font-playfair { font-family: 'Playfair Display', serif; }
 
-/* Document generic styling */
 .cv-header {
   margin-bottom: 24px;
 }
@@ -720,6 +791,7 @@ select.form-select {
   gap: 6px;
 }
 
+.cv-contact-item svg,
 .cv-contact-item i {
   color: var(--theme-primary);
   width: 12px;
@@ -736,7 +808,6 @@ select.form-select {
   color: var(--theme-primary);
 }
 
-/* Dynamic grid base */
 .cv-body-grid {
   display: grid;
   gap: 24px;
@@ -769,7 +840,6 @@ select.form-select {
   white-space: pre-line;
 }
 
-/* Repeating blocks styling in preview */
 .pv-item {
   margin-bottom: 14px;
 }
@@ -825,7 +895,6 @@ select.form-select {
   margin-top: 4px;
 }
 
-/* Bullet list inside description formatting */
 .pv-item-desc ul {
   padding-left: 18px;
   margin-top: 4px;
@@ -835,7 +904,6 @@ select.form-select {
   margin-bottom: 2px;
 }
 
-/* Skills styling */
 .pv-skills-container {
   display: flex;
   flex-direction: column;
@@ -869,7 +937,6 @@ select.form-select {
   border: 1px solid rgba(37, 99, 235, 0.08);
 }
 
-/* Languages and simple list blocks */
 .pv-languages-container {
   display: grid;
   grid-template-columns: 1fr;
@@ -890,11 +957,7 @@ select.form-select {
   font-style: italic;
 }
 
-/* ==========================================================================
-   CV SPECIFIC TEMPLATE SCHEMES (Visual Rules)
-   ========================================================================== */
-
-/* --- 1. MODERN EXECUTIVE TEMPLATE --- */
+/* --- 1. MODERN TEMPLATE --- */
 .template-modern .cv-body-grid {
   grid-template-columns: 1.7fr 1fr;
   gap: 28px;
@@ -911,7 +974,7 @@ select.form-select {
   margin-top: 10px;
 }
 
-/* --- 2. MINIMALIST ATS TEMPLATE --- */
+/* --- 2. ATS TEMPLATE --- */
 .template-ats {
   padding: 15mm 15mm !important;
 }
@@ -941,7 +1004,7 @@ select.form-select {
 }
 
 .template-ats .cv-body-grid {
-  display: block; /* Linear single column */
+  display: block;
 }
 
 .template-ats .cv-main-col,
@@ -1054,7 +1117,7 @@ select.form-select {
   gap: 6px;
 }
 
-/* --- 3. CREATIVE TECH GRID TEMPLATE --- */
+/* --- 3. CREATIVE TEMPLATE --- */
 .template-creative .cv-header {
   background: var(--theme-primary);
   margin: -20mm -20mm 24px -20mm;
@@ -1084,6 +1147,7 @@ select.form-select {
   color: rgba(255, 255, 255, 0.9);
 }
 
+.template-creative .cv-contact-item svg,
 .template-creative .cv-contact-item i {
   color: white;
 }
@@ -1116,14 +1180,134 @@ select.form-select {
 }
 
 /* ==========================================================================
-   UTILITY CLASSES
+   UTILITIES
    ========================================================================== */
 .hidden {
   display: none !important;
 }
 
 /* ==========================================================================
-   PRINT STYLESHEET (@media print)
+   RESPONSIVE — tablet & mobile
+   ========================================================================== */
+@media (max-width: 1180px) {
+  .editor-panel {
+    width: 390px;
+  }
+}
+
+@media (max-width: 960px) {
+  /* The app becomes a normal scrolling page: editor first, preview below */
+  .app-container {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .app-header {
+    position: sticky;
+    top: 0;
+    padding: 10px 16px;
+  }
+
+  .workspace {
+    flex-direction: column;
+    overflow: visible;
+    height: auto;
+  }
+
+  .editor-panel {
+    width: 100%;
+    flex-direction: column;
+    border-right: none;
+    border-bottom: 2px solid var(--ink);
+    overflow: visible;
+  }
+
+  .editor-tabs {
+    width: 100%;
+    flex-direction: row;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+    padding: 10px 12px;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .tab-btn {
+    flex-direction: row;
+    width: auto;
+    min-height: 44px;
+    padding: 8px 14px;
+    font-size: 0.74rem;
+    flex-shrink: 0;
+  }
+
+  .tab-btn svg,
+  .tab-btn i {
+    width: 17px;
+    height: 17px;
+  }
+
+  .editor-content-container {
+    overflow: visible;
+    padding: 22px 18px 32px;
+  }
+
+  .preview-panel {
+    overflow: visible;
+  }
+
+  .preview-controls {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+  }
+
+  .sheet-viewport {
+    padding: 26px 14px 60px;
+    overflow-x: auto;
+  }
+
+  /* Shrink the A4 sheet to fit phone screens */
+  .cv-sheet {
+    zoom: 0.66;
+  }
+}
+
+@media (max-width: 600px) {
+  .form-group-row {
+    grid-template-columns: 1fr;
+  }
+
+  .logo-text h1 {
+    font-size: 1.2rem;
+  }
+
+  .header-actions .btn {
+    padding: 8px 13px;
+    font-size: 0.8rem;
+  }
+
+  .tab-content h2 {
+    font-size: 1.35rem;
+  }
+
+  .cv-sheet {
+    zoom: 0.44;
+  }
+
+  .sheet-viewport {
+    padding: 18px 8px 48px;
+  }
+
+  .preview-controls {
+    gap: 10px 14px;
+    padding: 10px 14px;
+  }
+}
+
+/* ==========================================================================
+   PRINT
    ========================================================================== */
 @media print {
   body {
@@ -1131,7 +1315,10 @@ select.form-select {
     color: #000000;
   }
 
-  /* Hide app dashboard, editor panels, settings, preview helpers */
+  body::after {
+    display: none;
+  }
+
   .no-print,
   .app-header,
   .editor-panel,
@@ -1155,6 +1342,7 @@ select.form-select {
   .cv-sheet {
     box-shadow: none !important;
     transform: scale(1) !important;
+    zoom: 1 !important;
     margin: 0 !important;
     width: 100% !important;
     min-height: 0 !important;
@@ -1165,7 +1353,6 @@ select.form-select {
     print-color-adjust: exact;
   }
 
-  /* Prevent broken pages inside element cards */
   .pv-section {
     page-break-inside: avoid;
     break-inside: avoid;
@@ -1176,7 +1363,6 @@ select.form-select {
     break-inside: avoid;
   }
 
-  /* Force background colors to print */
   .pv-skill-badge {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
